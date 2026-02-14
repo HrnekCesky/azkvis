@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>How is your day going?</title>
+    </head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3f284d;
+            color: #333;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            display: flex;
+                flex-direction: column;
+        }
+        h1 {
+            font-size: 2em;
+            color: #007BFF;
+        }
+    </style>
+    <script>
+    function sendLine() {
+    const text = document.getElementById("line").value;
+
+    fetch("/write.php", {
+        method: "POST",
+        headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "line=" + encodeURIComponent(text)
+    })
+    .then(r => r.text())
+    .then(t => alert(t))
+    .catch(e => alert("Error: " + e));
+    }
+    </script>
+    <body>
+        <h1>Jak se ti dnes daří?</h1><br>
+        <input id="line" type="text" placeholder="Jméno" style="padding: 10px; width: 300px; font-size: 1em;"><br>
+        <input type="text" placeholder="Příjmení" style="padding: 10px; width: 300px; font-size: 1em;"><br><br>
+        <button onclick="sendLine()">Click me!</button>
+    </body>
+</html>
